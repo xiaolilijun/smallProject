@@ -21,11 +21,12 @@
     <div class="hovertreeinfo">
         <h2></h2>
     </div>
+    <div id="app"></div>
     <!-- <audio id="music" src="img/1.mp3" controls autoplay="autoplay" style="display:none"></audio>
     <img src="music.png" alt="" style="width: 70px;" id="musiccico" onclick="musiccc()"> -->
-    <div id="box"></div>
+    <!-- <div id="box"></div> -->
     <!-- 音乐 默认不显示 -->
-    <audio id="mv" src="img/1.mp3" controls autoplay="autoplay" style="display:none"></audio>
+    <!-- <audio id="mv" src="https://www.kugou.com/mixsong/72jrv7fa.html#hash=0F81E8E9BA21FB024F4B7BD26CE6EBD2&album_id=59154788&album_audio_id=427545043" controls autoplay="autoplay" style="display:none"></audio> -->
     
     <style>
         #box{
@@ -50,6 +51,13 @@
     </style>
 
     <script type="text/javascript">
+       const appDiv = document.getElementById('app');
+appDiv.innerHTML = `<h1>Click here to start audio</h1>`;
+const sound = new Audio("https://audio.bfmtv.com/bfmbusiness_128.mp3?aw_0_1st.playerId=AudioPlayer_Web_Next");
+appDiv.addEventListener("click", soundHandler);
+function soundHandler() {
+  sound.play()
+}
         // var music = document.getElementById('music')
         // var musiccico = document.getElementById('musiccico')
         // var tem = true
@@ -64,23 +72,23 @@
         //     document.getElementById('musiccico').style.animationPlayState = 'paused'
         //     }
         // }
-        box.onclick=function(){
-        // 获取当前盒子的动画播放状态
-        let status = box.style.animationPlayState
-        console.log(status)
-        if(status==''|| status==='paused'){//暂停状态
-            // 运行动画
-            box.style.animationPlayState = 'running'
-            // 播放音乐
-            setTimeout(() => {
-                mv.play()
-            }, 1000);
-        }else{
-            // 暂停音乐和动画
-            box.style.animationPlayState = 'paused'
-            mv.pause()
-        }
-    }
+    //     box.onclick=function(){
+    //     // 获取当前盒子的动画播放状态
+    //     let status = box.style.animationPlayState
+    //     console.log(status)
+    //     if(status==''|| status==='paused'){//暂停状态
+    //         // 运行动画
+    //         box.style.animationPlayState = 'running'
+    //         // 播放音乐
+    //         setTimeout(() => {
+    //             mv.play()
+    //         }, 1000);
+    //     }else{
+    //         // 暂停音乐和动画
+    //         box.style.animationPlayState = 'paused'
+    //         mv.pause()
+    //     }
+    // }
      
         // --------------------打印字 S--------------------------
         const words = [
