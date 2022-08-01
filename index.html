@@ -52,10 +52,12 @@
 
     <script type="text/javascript">
        const appDiv = document.getElementById('app');
-appDiv.innerHTML = `<h1>点击播放</h1>`;
+appDiv.innerHTML = `<div id="box"></div>`;
 const sound = new Audio("img/1.mp3");
 appDiv.addEventListener("click", soundHandler);
 function soundHandler() {
+let status = box.style.animationPlayState
+box.style.animationPlayState = 'running'
   sound.play()
 }
         // var music = document.getElementById('music')
