@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>小仙女的专属相册</title>
+    <link rel="stylesheet" href="css/hovertree.css" />
+    <!-- <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> -->
+    <script src="css/jquery.min.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+</head>
+
+<body>
+    
+    <!-- 打字 -->
+    <div class="typing">
+        <!-- 字幕 -->
+        <h2 class="header-sub-title" id="word"></h2>
+        <h2 class="header-sub-title blink">|</h2>
+    </div>
+    <div class="hovertreeinfo">
+        <h2></h2>
+    </div>
+    <!-- <audio id="music" src="img/1.mp3" controls autoplay="autoplay" style="display:none"></audio>
+    <img src="music.png" alt="" style="width: 70px;" id="musiccico" onclick="musiccc()"> -->
+    <div id="box"></div>
+    <!-- 音乐 默认不显示 -->
+    <audio id="mv" src="https://pan.baidu.com/s/1vUJtqdSZpQr9-eQ3FoKfzQ?pwd=9999" controls autoplay="autoplay" style="display:none"></audio>
+    
+    <style>
+        #box{
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: url("img/music.png");
+            background-size: cover;
+            /* 执行run动画 无限循环 默认暂停*/
+            animation: run 10s linear infinite paused;
+        }
+        /* 自定义动画 */
+        @keyframes run{
+            from{
+                /* 旋转效果 */
+                transform: rotateZ(0);
+            }
+            to{
+                transform: rotateZ(360deg);
+            }
+        }
+    </style>
+
+    <script type="text/javascript">
+        // var music = document.getElementById('music')
+        // var musiccico = document.getElementById('musiccico')
+        // var tem = true
+        // function musiccc(){
+        //     if(tem == false){
+        //     music.play()
+        //     tem = true
+        //     document.getElementById('musiccico').style.animationPlayState = 'running'
+        //     }else{
+        //         music.pause()
+        //     tem = false
+        //     document.getElementById('musiccico').style.animationPlayState = 'paused'
+        //     }
+        // }
+        box.onclick=function(){
+        // 获取当前盒子的动画播放状态
+        let status = box.style.animationPlayState
+        console.log(status)
+        if(status==''|| status==='paused'){//暂停状态
+            // 运行动画
+            box.style.animationPlayState = 'running'
+            // 播放音乐
+            setTimeout(() => {
+                mv.play()
+            }, 1000);
+        }else{
+            // 暂停音乐和动画
+            box.style.animationPlayState = 'paused'
+            mv.pause()
+        }
+    }
+     
+        // --------------------打印字 S--------------------------
+        const words = [
+            "❤ 与你认识也有两月有余,虽然平平淡淡,但我想这就是最真实的样子",
+            "❤ 你说我们性格很像,但这恰巧说明我们的三观没有问题!",
+            "❤ 可能因为工作的原因M确实没有更多的时间去关心你,让你觉得我对你不在意",
+            "❤ 有时候我很现实,我非常清楚,我只有把握住当下,才能给你,给我们带去未来。",
+            "❤ 我也知道你在担心什么,你担心万一咱俩不合适,怕把我耽误了。",
+            "❤ 但是两个人在一起本来就是相互了解和磨合的过程!",
+            "❤ 有人说,遇见的就是天意,拥有的都是幸运,世界上有千万种可能,但只有一种叫未来可期!",
+            "❤ 和你相识,那可能就是天意。所以,我也会好好的去珍惜你,并期待着未来。",
+            "❤ 相濡以沫是我的目标，但绝不是终点，我希望未来的生活中有你。"
+        ];
+        let PPP = 0;
+        let timer;
+        // speed in ms
+        let deleteDelay = 4000;
+        let typeSpeed = 150;
+        let delSpeed = 60;
+        /* 开始编写文字 */
+        function typingEffect() {
+            let word = words[PPP].split("");
+            var loopTyping = function () {
+                if (word.length > 0) {
+                    document.getElementById("word").innerHTML += word.shift();
+                } else {
+                    delay(function () {
+                        deletingEffect(); // do stuff
+                    }, deleteDelay); // end delay
+                    // deletingEffect();
+                    return false;
+                }
+                timer = setTimeout(loopTyping, typeSpeed);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[PPP].split("");
+            var loopDeleting = function () {
+                if (word.length > 0) {
+                    word.pop();
+                    document.getElementById("word").innerHTML = word.join("");
+                } else {
+                    if (words.length > PPP + 1) {
+                        PPP++;
+                    } else {
+                        PPP = 0;
+                    }
+                    typingEffect();
+                    return false;
+                }
+                timer = setTimeout(loopDeleting, delSpeed);
+            };
+            loopDeleting();
+        }
+
+        var delay = (function () {
+            var timer = 0;
+            return function (callback, ms) {
+                clearTimeout(timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
+        setTimeout(() => {
+            typingEffect();
+        }, 5000);
+        window.onload = function(){
+		var screenW = document.documentElement.clientWidth;
+		var screenH = document.documentElement.clientHeight;
+		var colorArr = ['#fff','skyblue','orange'];
+		console.log(screenW);
+		for( var i=0; i<800; i++ ){
+			var span = document.createElement('span');
+			var width = Math.random() * 3;
+			var colorIndex = parseInt(Math.random() * 3);
+			var x = parseInt(Math.random() * screenW);
+			var y = parseInt(Math.random() * screenH);
+			span.style.width = parseInt(width) + 'px';
+			span.style.height = parseInt(width) + 'px';
+			span.style.background = colorArr[colorIndex];
+			span.style.left = x + 'px';
+			span.style.top = y + 'px';
+ 
+			document.body.appendChild(span);
+		}
+	}
+    // --------------------打印字 E--------------------------
+    </script>
+
+    <!--/*外层最大容器*/-->
+    <div class="wrap">
+        <!--	/*包裹所有元素的容器*/-->
+        <div class="cube">
+            <!--前面图片 -->
+            <div class="out_front">
+                <img src="img/1.png" class="pic" />
+            </div>
+            <!--后面图片 -->
+            <div class="out_back">
+                <img src="img/2.png " class="pic" />
+            </div>
+            <!--左图片 -->
+            <div class="out_left">
+                <img src="img/3.png " class="pic" />
+            </div>
+            <div class="out_right">
+                <img src="img/1.png " class="pic" />
+            </div>
+            <div class="out_top">
+                <img src="img/2.png " class="pic" />
+            </div>
+            <div class="out_bottom">
+                <img src="img/3.png " class="pic" />
+            </div>
+            <!--小正方体 -->
+            <span class="in_front">
+                <img src="img/1.png " class="in_pic" />
+            </span>
+            <span class="in_back">
+                <img src="img/2.png " class="in_pic" />
+            </span>
+            <span class="in_left">
+                <img src="img/3.png " class="in_pic" />
+            </span>
+            <span class="in_right">
+                <img src="img/1.png " class="in_pic" />
+            </span>
+            <span class="in_top">
+                <img src="img/2.png " class="in_pic" />
+            </span>
+            <span class="in_bottom">
+                <img src="img/3.png " class="in_pic" />
+            </span>
+        </div>
+    </div>
+    
+</body>
+<style>
+   body{
+			width: 100%;
+			height: 1000px;
+			background: linear-gradient(to bottom right, #000, #2073c2 60%, #dff6ff);
+			overflow: hidden;
+		}
+		span{
+			display: block;
+			position: absolute;
+			border-radius: 50%;
+			box-shadow: 0.4px 0.4px 0.4px 0px #fff;
+		} 
+</style>
+
+</html>
